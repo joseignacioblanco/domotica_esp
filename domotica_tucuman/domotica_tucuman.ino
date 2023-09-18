@@ -10,22 +10,23 @@
 #include <ESP8266WiFi.h> //Este archivo cabeccera lo activo cuando es la placa ESP8266 y hay qe cambiar tambien en "placa" del ide de arbino.
 #include <WiFiClientSecure.h> //Todavia no se para que sirve este archivo cabecera: al parecer hay que crear un objeto cliente de la clase WiFiClientSecure.
 #include <UniversalTelegramBot.h> //Este archivo cabecera debe habilitar los metodos de lo que es el BOT de TELEGRAM.
-#include <ArduinoJson.h> //Todavia no se para que sirve este archivo cabecera.
+#include <ArduinoJson.h> //Archivo cabecera para interpretar los comandos de telegran.
+#include "credenciales.h" //aqui van a estar las claves de ssid password bottoken y chat_id.
 
 //--------------------------------------------------------------------------------------------
                                //COMPLETAR CON DATOS DEL USUARIO
-                               
+                               // Lo pase todo al credenciales.h
 //Reemplzar por datos de la red a utilizar donde va a estar la placa.(hacer el truquito de configurar mediante archivo y .h)
-const char* ssid = "la_belen_lava_las_tazas"; //Nombre de la red de WiFi donde va estar la placa esp.
-const char* password = "misumobelescubio"; //Contraseña de la red de WiFi de la linea anterior.
+//const char* ssid = "la_belen_lava_las_tazas"; //Nombre de la red de WiFi donde va estar la placa esp.
+//const char* password = "misumobelescubio"; //Contraseña de la red de WiFi de la linea anterior.
 
 //Inicializacion del Bot de Telegram
-#define BOTtoken "5568512239:AAGlvS7ObKzH0jHHaamfuVPbU5K2Tixbny8"  //Escribir el token que me devuelve el bot father: Es una #define(Completar)
+//#define BOTtoken "5568512239:AAGlvS7ObKzH0jHHaamfuVPbU5K2Tixbny8"  //Escribir el token que me devuelve el bot father: Es una #define(Completar)
 //tambien esto del BOToken y del ID lo puedo configurar a traves del archivito .h
 
-//ID de chat: este ID lo saco de el bot: IDBot
-//#define CHAT_ID "-1001611135015" debe ser que hay un ID para cada grupo de telegram (REVISAR)
-#define CHAT_ID "900499386"
+//ID de chat: este ID lo saco de el bot: IDBot.
+//#define CHAT_ID "-1001611135015" debe ser que hay un ID para cada grupo de telegram (REVISAR).
+//#define CHAT_ID "900499386" //esta es la que anda con prueba.
 
 //---------------------------------------------------------------------------------------------
 
@@ -120,7 +121,7 @@ void setup()
   
   //Conexion a red de WiFi
   WiFi.mode(WIFI_STA); //configura el WIFI de la esp como cliente o STATION creo que lo hace atravez de comandos AT y lo elige en modo 1. el modo 2 es AP y el 3 es mixto.
-  WiFi.begin(ssid, password); //aqui toma los parametros definidos en las lineas 13 y 14.
+  WiFi.begin(SSID, PASSWORD); //aqui toma los parametros definidos en las lineas 13 y 14. (ya no ahora de credenciales.h)
   
   while (WiFi.status() != WL_CONNECTED) //Este while no termina hasta que se conecte a la red.
     {
