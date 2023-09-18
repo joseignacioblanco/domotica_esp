@@ -6,15 +6,22 @@
 //tombonia@gmail.com
 //-------------------------------------------------------------------------------------------------------------------------------------
 
+
+ //---------------------------------------ARCHIVOS CABECERA------------------------------------------------------------
 //#include <WiFi.h> //Este archivo cabecera lo activo cuando es la placa esp32 y hay que cambiar tambien en "placa" del ide de arbino.
 #include <ESP8266WiFi.h> //Este archivo cabeccera lo activo cuando es la placa ESP8266 y hay qe cambiar tambien en "placa" del ide de arbino.
 #include <WiFiClientSecure.h> //Todavia no se para que sirve este archivo cabecera: al parecer hay que crear un objeto cliente de la clase WiFiClientSecure.
-#include <UniversalTelegramBot.h> //Este archivo cabecera debe habilitar los metodos de lo que es el BOT de TELEGRAM.
-#include <ArduinoJson.h> //Archivo cabecera para interpretar los comandos de telegran.
+//#include <UniversalTelegramBot.h> //Este archivo cabecera debe habilitar los metodos de lo que es el BOT de TELEGRAM.
+//#include <ArduinoJson.h> //Archivo cabecera para interpretar los comandos de telegran.
 #include "credenciales.h" //aqui van a estar las claves de ssid password bottoken y chat_id.
+#include "funciones.h"
+//para agregar el archivo cabecera fui al triangulito de arriba a la derecha y puse nueva pestaña y le pongo el nombre.h y adentro los #defines.
+
+
+
 
 //--------------------------------------------------------------------------------------------
-                               //COMPLETAR CON DATOS DEL USUARIO
+                               //COMPLETAR CON DATOS DEL USUARIO (ya lo pase a credenciales.h)
                                // Lo pase todo al credenciales.h
 //Reemplzar por datos de la red a utilizar donde va a estar la placa.(hacer el truquito de configurar mediante archivo y .h)
 //const char* ssid = "la_belen_lava_las_tazas"; //Nombre de la red de WiFi donde va estar la placa esp.
@@ -30,94 +37,49 @@
 
 //---------------------------------------------------------------------------------------------
 
-WiFiClientSecure client; //Crea un objeto "client" de la clase WiFiClientSecure
-UniversalTelegramBot bot(BOTtoken, client); //Parece que crea un objeto "bot" de la clase UniversalTelegramBot y lo construye con los parametros BOToken de la linea 17 y con el objeto client de la linea 25.
+
+//prototipado de funciones
+void handleNewMessages(int numNewMessages); //prototipo de funcion
+
+
+
+//------------------------------ALGUNAS DECLARACIONES-----------------------------------------
+
+//WiFiClientSecure client; //Crea un objeto "client" de la clase WiFiClientSecure
+//UniversalTelegramBot bot(BOTtoken, client); //Parece que crea un objeto "bot" de la clase 
+                                            //UniversalTelegramBot y lo construye con los 
+                                            //parametros BOToken de la linea 17 y con el objeto
+                                            //client de la linea 25.
+
+
+
 
 //Configura para que cheguee los mensajes cada 1 segundo.
-const unsigned long tiempo = 1000; //tiempo medio entre mensajes de escaneo
+const unsigned long tiempo = 1000; //tiempo medio entre mensajes de escaneo mil milisegundos es un segundo.
 unsigned long tiempoAnterior; //última vez que se realizó el análisis de mensajes
 
 //definicion de los pines
-const int ledPin = 2; //el builtin de la esp32 es gpio 2.
-//const int ledPin = 16; //debe ser para cuando uso la esp32 o la esp8266
+//const int magnetic_door_ingreso_pin = PUERTA_INGRESO_PIN; //el builtin de la esp32 es gpio 2.
+//const int magnetic_door_ingreso_pin = 16; //debe ser para cuando uso la esp32 o la esp8266
 
 //estado inicial del pin
-bool ledState = LOW; //aqui configura el estado inicial del led en LOW.
+//bool magnetic_door_ingreso_state = LOKED; //aqui configura el estado inicial del led en LOW.
 
-
-
-             //---------FUNCION MANEJADORA DE LA COMUNICACION ENTRE TELEGRAM Y LA ESP---------------
-
-void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recibe un mensaje (ESTE ES EL PROTOTIPO DE LA FUNCION QUE RECIBE UN ENTERO)
-  {
-
-  for (int i=0; i<numNewMessages; i++)
-    {
-    String chat_id = String(bot.messages[i].chat_id);
-    if (chat_id != CHAT_ID)
-      {
-      bot.sendMessage(chat_id, "Usuario no autorizado", "");
-      continue; //Rompe el ciclo acttual y pasa al siguiente ciclo de for.
-      }
-    
-    //Imprime el mensaje recibido
-    String text = bot.messages[i].text;
-    Serial.println(text);
-
-    String from_name = bot.messages[i].from_name;
-
-    if (text == "/Ayuda")
-      {
-      String welcome = "Bienvenido al sistema de control luces de la DNT iot, " + from_name + ".\n";
-      welcome += "Use estos comandos para controlar los leds.\n\n";
-      welcome += "/led_on para encender GPIO \n";
-      welcome += "/led_off para apagar GPIO \n";
-      welcome += "/Estado muestra el estado de los GPIO \n";
-      welcome += "/Ayuda imprime este menú \n";
-      bot.sendMessage(chat_id, welcome, "");
-      }
-
-    //encender led
-    if (text == "/led_on")
-      {
-      bot.sendMessage(chat_id, "El LED esta encendido", "");
-      ledState = HIGH;
-      digitalWrite(ledPin, !ledState);//el gpio2 tiene logica ivertida en la esp8266 pero normal en la esp32.
-      }
-
-    //apagar led
-    if (text == "/led_off")
-      {
-      bot.sendMessage(chat_id, "El LED esta apagado", "");
-      ledState = LOW;
-      digitalWrite(ledPin, !ledState);//el gpio2 tiene logica ivertida en la esp8266 pero normal en la esp32.
-      }
-
-    //Estado del led
-    if (text == "/Estado")
-      {
-      if (digitalRead(!ledState)) //Logica invertida para la esp8266 y normal para la esp 32.
-        {
-        bot.sendMessage(chat_id, "El LED esta encendido", "");
-        }
-      else
-        {
-        bot.sendMessage(chat_id, "El LED esta apagado", "");
-        }
-      }
-    }
-  } //Aqui cierra la funcion que maneja el mejsaje que llega desde telegram.
 
 //-----------------------------------------------------------------------------------------
-                               //SETUP
+ 
+
+ 
+ 
+ //------------------------------VOID SETUP---------------------------------------------------
 
 void setup()
   {
   Serial.begin(115200); //Inicia y configura el puerto serie.
   client.setInsecure(); //No se que hace esto pero setea algo del oblejo client de la clase WiFiClientSecure.
 
-  pinMode(ledPin, OUTPUT); //Configura el pin 2 de la placa esp como salida digital. Linea 33.
-  digitalWrite(ledPin, ledState); //Le pone un LOW al pin 2. (deberia manejarlo con ledState de la linea 44.) porque es el estado predeterminado.
+  pinMode(magnetic_door_ingreso_pin, OUTPUT); //Configura el pin 2 de la placa esp como salida digital. Linea 33.
+  digitalWrite(magnetic_door_ingreso_pin, magnetic_door_ingreso_state); //Le pone un LOW al pin 2. (deberia manejarlo con magnetic_door_ingreso_state de la linea 44.) porque es el estado predeterminado.
   
   //Conexion a red de WiFi
   WiFi.mode(WIFI_STA); //configura el WIFI de la esp como cliente o STATION creo que lo hace atravez de comandos AT y lo elige en modo 1. el modo 2 es AP y el 3 es mixto.
@@ -133,7 +95,12 @@ void setup()
   }
 
 //------------------------------------------------------------------------------------------------
-                               //LOOP
+
+
+
+                               
+                               
+   //----------------------------------VOID LOOP-----------------------------------
 
 void loop()
   {
@@ -149,3 +116,11 @@ void loop()
     tiempoAnterior = millis(); //corre el cronometro para resetear el proximo segundo.
     }
   }
+
+  //-------------------------------------FIN-------------------------------------------------
+
+
+
+
+
+  
