@@ -81,3 +81,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       }
     }
   } //Aqui cierra la funcion que maneja el mejsaje que llega desde telegram.
+
+
+
+  //-----------------------------------------------------------------------------------------
