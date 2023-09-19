@@ -14,6 +14,9 @@
 
 #define LOKED HIGH //estados para la cerradura de las puertas
 #define UNLOKED LOW
-
+#define ENABLED HIGH
+#define DISABLED LOW
 //---------------------Configuracion de pines GPIO------------------------
 #define PUERTA_INGRESO_PIN 2
+#define CHICHARRA_INGRESO_PIN 16
+#define LUZ_VEREDA_PIN 3

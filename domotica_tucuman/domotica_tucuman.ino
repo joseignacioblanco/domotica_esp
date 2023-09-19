@@ -9,7 +9,7 @@
 
 
 //---------------------------------------ARCHIVOS CABECERA------------------------------------------------------------
-//#include <WiFi.h> //Este archivo cabecera lo activo cuando es la placa esp32. Hay que cambiar tambien en "placa" del ide de arbino.
+//#include <WiFi.h> //Este archivo cabecera lo activo cuando es la placa esp32. Hay que cambiar tambien en "placa" del ide de arbino.(podria hacerlo con hiderwors o algo similar)
 
 #include <ESP8266WiFi.h> //Este archivo cabeccera lo activo cuando es la placa ESP8266.
 #include <WiFiClientSecure.h> //Todavia no se para que sirve este archivo cabecera: al parecer hay que crear un objeto cliente de la clase WiFiClientSecure.
@@ -35,9 +35,15 @@ void setup()
   {
   Serial.begin(115200); //Inicia y configura el puerto serie.
   client.setInsecure(); //No se que hace esto pero setea algo del oblejo client de la clase WiFiClientSecure.
-
+  
+  //Configura el pinaut GPIOS y los setea.
   pinMode(magnetic_door_ingreso_pin, OUTPUT); //Configura el pin 2 de la placa esp como salida digital. Linea 33.
   digitalWrite(magnetic_door_ingreso_pin, LOKED); //le pone un HIGH al pin del magnetico de la puerta de ingreso(definido en credenciales.h) y lo bloquea.
+  
+  pinMode(chicharra_pin, OUTPUT);
+  digitalWrite(chicharra_pin, ENABLED);
+
+
   
   //Conexion a red de WiFi
   WiFi.mode(WIFI_STA); //configura el WIFI de la esp como cliente o STATION creo que lo hace atravez de comandos AT y lo elige en modo 1. el modo 2 es AP y el 3 es mixto.
@@ -50,9 +56,9 @@ void setup()
     ciclo ? Serial.print(".") : Serial.print("\n --> Conectando a WiFi."); //oerador ternario para que ponga puntos suspensivos hasta que se conecte
     ciclo++;
     }
-    
   Serial.print("Se ha conectado a la red wifi. Dirección IP: "); //Una vez conectado a la red, manda mensaje de conectado y devuelve el IP.
   Serial.println(WiFi.localIP());
+  
   }
 
 
