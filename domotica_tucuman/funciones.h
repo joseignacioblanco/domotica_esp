@@ -45,7 +45,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
 
     String from_name = bot.messages[i].from_name; //trae a una variable, el nombre del bot creado. (REVISAR)
 
-    if (text == "/Ayuda")
+    if (text == "/Ayuda" || text == "/Ayuda@neder86_bot")
       {
       String welcome = "Control EDIFICIO-TUCUMAN, " + from_name + ".\n";
       welcome += "Comandos para control:\n\n";
@@ -61,7 +61,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       }
 
     //bloquea puertas de ingreso reja y vidrio.
-    if (text == "/bloquear_puerta_ingreso")
+    if (text == "/bloquear_puerta_ingreso" || text == "/bloquear_puerta_ingreso@neder86_bot")
       {
       bot.sendMessage(chat_id, "Cerradura de ingreso BLOQUEADA!", "");
       magnetic_door_ingreso_state = HIGH;
@@ -69,7 +69,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       }
 
     //desbloquea puertas de ingreso reja y vidrio. (despues separar cada una cada una)
-    if (text == "/desbloquear_puerta_ingreso")
+    if (text == "/desbloquear_puerta_ingreso" || text == "/desbloquear_puerta_ingreso@neder86_bot")
       {
       bot.sendMessage(chat_id, "Cerradura de ingreso DESbloqueada", "");
       magnetic_door_ingreso_state = LOW;
@@ -78,7 +78,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
  //--------------------------------------------------------------------------------------------------------------------------------------------------
 
     //activa chicharra de puertas abiertas.
-    if (text == "/activar_chicharra")
+    if (text == "/activar_chicharra" || text == "/activar_chicharra@neder86_bot")
       {
       bot.sendMessage(chat_id, "Chicharra ACTIVADA!", "");
       chicharra_state = HIGH;
@@ -86,7 +86,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       }
 
     //desactiva chicharra de las puertas abiertas)
-    if (text == "/desactivar_chicharra")
+    if (text == "/desactivar_chicharra" || text == "/desactivar_chicharra@neder86_bot")
       {
       bot.sendMessage(chat_id, "Chicharra DESACTIVADA", "");
       chicharra_state = LOW;
@@ -96,7 +96,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
  //--------------------------------------------------------------------------------------------------------------------------------------------------
 
     //Enciende la luz del plafon de la vereda.
-    if (text == "/luz_vereda_ON")
+    if (text == "/luz_vereda_ON" || text == "/luz_vereda_ON@neder86_bot")
       {
       bot.sendMessage(chat_id, "Luz vereda ENCENDIDA!", "");
       luz_vereda_state = HIGH;
@@ -104,7 +104,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       }
 
     //Apaga la luz del plafon de la vereda.
-    if (text == "/luz_vereda_OFF")
+    if (text == "/luz_vereda_OFF" || text == "/luz_vereda_OFF@neder86_bot")
       {
       bot.sendMessage(chat_id, "Luz vereda APAGADA!", "");
       luz_vereda_state = LOW;
@@ -124,7 +124,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
   //----------------------------------------------------------------------------------------------------------------------------------------------------
 
     //Estado general del sistema
-    if (text == "/Estado")   //completar esto para la chicharra.
+    if (text == "/Estado" || text == "/Estado@neder86_bot")   //completar esto para la chicharra.
       {
       if (digitalRead(!magnetic_door_ingreso_state)) //Logica invertida para la esp8266 y normal para la esp 32.
         {
