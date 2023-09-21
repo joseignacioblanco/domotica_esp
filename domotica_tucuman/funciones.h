@@ -25,7 +25,7 @@ bool chicharra_state = ENABLED;
 bool luz_vereda_state = ENABLED;
 
 
-//---------FUNCION MANEJADORA DE LA COMUNICACION ENTRE TELEGRAM Y LA ESP---------------
+//-------1--FUNCION MANEJADORA DE LA COMUNICACION ENTRE TELEGRAM Y LA ESP---------------
 
 void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recibe un mensaje (ESTE ES EL PROTOTIPO DE LA FUNCION QUE RECIBE UN ENTERO)
   {
@@ -168,3 +168,23 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
 
 
   //-----------------------------------------------------------------------------------------
+
+
+
+//-------------------------------------2--FUNCION INTERRUPCION-------------------------------
+bool bandera = LOW; //este flag es para que quede registro que se presiono el boton o salto el sensor de la interrupcion y le da tiempo al coigo a actuar.
+
+void IRAM_ATTR buttonInput(){ //esta es la funcion que se ejecuta cuando entra la interrupcion del boton
+   //if(!digitalRead(boton_de_prueba)) //si es 1 HIGH o 5v entra al if y habilita la vandera
+       bandera = HIGH;
+      }
+
+//----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+  
