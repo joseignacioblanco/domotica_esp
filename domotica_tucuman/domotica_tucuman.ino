@@ -9,25 +9,24 @@
 
 
 //---------------------------------------ARCHIVOS CABECERA------------------------------------------------------------
-//#include <WiFi.h> //Este archivo cabecera lo activo cuando es la placa esp32. Hay que cambiar tambien en "placa" del ide de arbino.(podria hacerlo con hiderwors o algo similar)
 
+//#include <WiFi.h> //Este archivo cabecera lo activo cuando es la placa esp32. Hay que cambiar tambien en "placa" del ide de arbino.(podria hacerlo con hiderwors o algo similar)
 #include <ESP8266WiFi.h> //Este archivo cabeccera lo activo cuando es la placa ESP8266.
 #include <WiFiClientSecure.h> //Todavia no se para que sirve este archivo cabecera: al parecer hay que crear un objeto cliente de la clase WiFiClientSecure.
 #include "credenciales.h" //aqui van a estar las claves de ssid password bottoken y chat_id, para personalizar mejor el codigo segun el usuario.
 #include "funciones.h"
 //para agregar el archivo cabecera fui al triangulito de arriba a la derecha y puse nueva pestaña y le pongo el nombre.h y adentro los #defines.
-
-
+#include <UniversalTelegramBot.h> //Este archivo cabecera debe habilitar los metodos de lo que es el BOT de TELEGRAM. estas dos ya estan en funciones.h hacer jiderguors
+#include <ArduinoJson.h> //Archivo cabecera para interpretar los comandos de telegran.
 
 //-----------------------------------PROTOTIPADO DE FUNCIONES----------------------------------------------------------
 void handleNewMessages(int numNewMessages); //Maneja el menu de opciones, los gpio y los mensajes a la comunicacion serie y a telegram.
-
-
+void IRAM_ATTR buttonInput();
 
 //------------------------------ALGUNAS DECLARACIONES-----------------------------------------
 const unsigned long tiempo = 1000; //delay entre cada verificacion de mensaje.
 unsigned long tiempoAnterior; //última vez que se realizó el análisis de mensajes. Truquito para que funcione con millis()
-
+bool bandera = LOW;
 
 
  //------------------------------VOID SETUP---------------------------------------------------
@@ -38,12 +37,18 @@ void setup()
   
   //Configura el pinaut GPIOS y los setea.
   pinMode(magnetic_door_ingreso_pin, OUTPUT); //Configura el pin 2 de la placa esp como salida digital. Linea 33.
-  digitalWrite(magnetic_door_ingreso_pin, LOKED); //le pone un HIGH al pin del magnetico de la puerta de ingreso(definido en credenciales.h) y lo bloquea.
+  digitalWrite(magnetic_door_ingreso_pin, LOKED); //le pone un HIGH al pin del magnetico de la puerta de ingreso(definido en credenciales.h) y lo bloquea. 
+  
+  pinMode(led_de_prueba, OUTPUT);
+  digitalWrite(led_de_prueba, HIGH);//tiene logica invertida con low se prende y con high se apaga. 
+
+  pinMode(boton_de_prueba, INPUT_PULLUP);
   
   pinMode(chicharra_pin, OUTPUT);
   digitalWrite(chicharra_pin, ENABLED);
 
-
+  pinMode(luz_vereda_pin, OUTPUT);
+  digitalWrite(luz_vereda_pin, HIGH);
   
   //Conexion a red de WiFi
   WiFi.mode(WIFI_STA); //configura el WIFI de la esp como cliente o STATION creo que lo hace atravez de comandos AT y lo elige en modo 1. el modo 2 es AP y el 3 es mixto.
@@ -58,6 +63,11 @@ void setup()
     }
   Serial.print("Se ha conectado a la red wifi. Dirección IP: "); //Una vez conectado a la red, manda mensaje de conectado y devuelve el IP.
   Serial.println(WiFi.localIP());
+
+//interrupcion 
+
+attachInterrupt(digitalPinToInterrupt(boton_de_prueba), buttonInput, RISING);
+
   
   }
 
@@ -77,6 +87,21 @@ void loop()
       }
     tiempoAnterior = millis(); //corre el cronometro para resetear el proximo segundo. usa millis para no usar delay que es mas bloqueante.
     }
+
+      //---------------------------------------------------------------------------
+          //AQUI SERVICIOS DE SENSOREO
+          
+  if(bandera) //si es 1 HIGH o 5v entra al if
+      {
+        Serial.println("BOTON PRESIONADO");
+       bot.sendMessage(CHAT_ID, "BOTON DE PRUEBA PRESIONADO!", "");
+       Serial.println("Led de Prueba prendido");
+       digitalWrite(led_de_prueba, LOW); //es logica invertida.
+       delay(2000);
+       Serial.println("Led de prueba apagado");
+       digitalWrite(led_de_prueba, HIGH);
+       bandera = LOW;
+      }
   }
 
 
@@ -84,7 +109,21 @@ void loop()
   //-------------------------------------FIN-------------------------------------------------
 
 
-
+void IRAM_ATTR buttonInput(){
+   //if(!digitalRead(boton_de_prueba)) //si es 1 HIGH o 5v entra al if
+    /*  {
+        Serial.println("BOTON PRESIONADO");
+       bot.sendMessage(CHAT_ID, "BOTON DE PRUEBA PRESIONADO!", "");
+       Serial.println("Led de Prueba prendido");
+       digitalWrite(led_de_prueba, LOW); //es logica invertida.
+       delay(2000);
+       Serial.println("Led de prueba apagado");
+       digitalWrite(led_de_prueba, HIGH);*/
+      bandera = HIGH;
+      }
+  
+  
+  
 
 
   

@@ -16,6 +16,8 @@ const int magnetic_door_ingreso_pin = PUERTA_INGRESO_PIN; //el builtin de la esp
 //const int magnetic_door_ingreso_pin = 16; //debe ser para cuando uso la esp32 o la esp8266
 const int chicharra_pin = CHICHARRA_INGRESO_PIN;
 const int luz_vereda_pin = LUZ_VEREDA_PIN;
+const int boton_de_prueba = 0;  //GPIO 0 - PIN D3
+const int led_de_prueba = 2; //GPIO 2 - PIN D4
 
 //estado inicial del pin
 bool magnetic_door_ingreso_state = LOKED; //aqui configura el estado inicial del led en LOW.
@@ -47,12 +49,12 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       {
       String welcome = "Control EDIFICIO-TUCUMAN, " + from_name + ".\n";
       welcome += "Comandos para control:\n\n";
-      welcome += "/bloquear_puerta_ingreso. \n";
-      welcome += "/desbloquear_puerta_ingreso. \n";
-      welcome += "/activar_chicharra. \n";
-      welcome += "/desactivar_chicharra. \n";
-      welcome += "/luz_vereda_ON. \n";
-      welcome += "/luz_vereda_OFF. \n";
+      welcome += "/bloquear_puerta_ingreso \n";
+      welcome += "/desbloquear_puerta_ingreso \n";
+      welcome += "/activar_chicharra \n";
+      welcome += "/desactivar_chicharra \n";
+      welcome += "/luz_vereda_ON \n";
+      welcome += "/luz_vereda_OFF \n";
       welcome += "/Estado muestra el estado general del sistema. \n";
       welcome += "/Ayuda imprime este Menú \n";
       bot.sendMessage(chat_id, welcome, "");
@@ -63,7 +65,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       {
       bot.sendMessage(chat_id, "Cerradura de ingreso BLOQUEADA!", "");
       magnetic_door_ingreso_state = HIGH;
-      digitalWrite(magnetic_door_ingreso_pin, !magnetic_door_ingreso_state);//el gpio2 tiene logica ivertida en la esp8266 pero normal en la esp32.
+      digitalWrite(magnetic_door_ingreso_pin, magnetic_door_ingreso_state);//el gpio2 tiene logica ivertida en la esp8266 pero normal en la esp32.
       }
 
     //desbloquea puertas de ingreso reja y vidrio. (despues separar cada una cada una)
@@ -71,7 +73,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       {
       bot.sendMessage(chat_id, "Cerradura de ingreso DESbloqueada", "");
       magnetic_door_ingreso_state = LOW;
-      digitalWrite(magnetic_door_ingreso_pin, !magnetic_door_ingreso_state);//el gpio2 tiene logica ivertida en la esp8266 pero normal en la esp32.
+      digitalWrite(magnetic_door_ingreso_pin, magnetic_door_ingreso_state);//el gpio2 tiene logica ivertida en la esp8266 pero normal en la esp32.
       }
  //--------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -80,7 +82,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       {
       bot.sendMessage(chat_id, "Chicharra ACTIVADA!", "");
       chicharra_state = HIGH;
-      digitalWrite(chicharra_pin, !chicharra_state);// configurar si es en alto o en bajo.
+      digitalWrite(chicharra_pin, chicharra_state);// configurar si es en alto o en bajo.
       }
 
     //desactiva chicharra de las puertas abiertas)
@@ -88,7 +90,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       {
       bot.sendMessage(chat_id, "Chicharra DESACTIVADA", "");
       chicharra_state = LOW;
-      digitalWrite(chicharra_pin, !chicharra_state);//configurar si es alto o bajo.
+      digitalWrite(chicharra_pin, chicharra_state);//configurar si es alto o bajo.
       }
 
  //--------------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,7 +100,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       {
       bot.sendMessage(chat_id, "Luz vereda ENCENDIDA!", "");
       luz_vereda_state = HIGH;
-      digitalWrite(luz_vereda_pin, !luz_vereda_state);// configurar si es en alto o en bajo.
+      digitalWrite(luz_vereda_pin, luz_vereda_state);// configurar si es en alto o en bajo.
       }
 
     //Apaga la luz del plafon de la vereda.
@@ -106,15 +108,18 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       {
       bot.sendMessage(chat_id, "Luz vereda APAGADA!", "");
       luz_vereda_state = LOW;
-      digitalWrite(luz_vereda_pin, !luz_vereda_state);//configurar si es alto o bajo.
+      digitalWrite(luz_vereda_pin, luz_vereda_state);//configurar si es alto o bajo.
       }
 
  //----------------------------------------------------------------------------------------------------------------------------------------------------
+
+          
+          
           //agregar mas servicios
 
 
 
-
+  
       
   //----------------------------------------------------------------------------------------------------------------------------------------------------
 

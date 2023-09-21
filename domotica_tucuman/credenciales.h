@@ -8,7 +8,9 @@
                                     //antes estaba cuncionando como const char* password = "misumobelescubio";.
 #define BOTtoken "5568512239:AAGlvS7ObKzH0jHHaamfuVPbU5K2Tixbny8" //este token lo deuelve el BotFather de telegram.
 
-#define CHAT_ID "900499386" //este id lo devuelve el bot IDBot de telegram.
+//#define CHAT_ID "-1001922861125" //este id lo devuelve el bot IDBot de telegram. para el grupo de control remoto
+#define CHAT_ID "-1001611135015" //este id lo devuelve el bot IDBot de telegram. para el grupo de control remoto
+//#define CHAT_ID "900499386" //este id lo devuelve el bot IDBot de telegram. para solo prueba 1
 
 //-----------------Otras Configuraciones-----------------------------------
 
@@ -17,6 +19,9 @@
 #define ENABLED HIGH
 #define DISABLED LOW
 //---------------------Configuracion de pines GPIO------------------------
-#define PUERTA_INGRESO_PIN 2
+//el pin D4 que pertenece al GPIO 2 es el del LED de la placa builtin.(para prender el led hay que meter un LOW porque es logica invertida)
+//el pin D3 que pertenece al GPIO 0 es el del boton FLASH de la placa.
+
+#define PUERTA_INGRESO_PIN 5
 #define CHICHARRA_INGRESO_PIN 16
-#define LUZ_VEREDA_PIN 3
+#define LUZ_VEREDA_PIN 4
