@@ -1,3 +1,5 @@
+
+//Archivos cabecera
 #include <UniversalTelegramBot.h> //Este archivo cabecera debe habilitar los metodos de lo que es el BOT de TELEGRAM.
 #include <ArduinoJson.h> //Archivo cabecera para interpretar los comandos de telegran
 
@@ -19,10 +21,14 @@ const int luz_vereda_pin = LUZ_VEREDA_PIN;
 const int boton_de_prueba = 0;  //GPIO 0 - PIN D3
 const int led_de_prueba = 2; //GPIO 2 - PIN D4
 
+
 //estado inicial del pin
 bool magnetic_door_ingreso_state = LOKED; //aqui configura el estado inicial del led en LOW.
 bool chicharra_state = ENABLED;
 bool luz_vereda_state = ENABLED;
+
+
+
 
 
 //-------1--FUNCION MANEJADORA DE LA COMUNICACION ENTRE TELEGRAM Y LA ESP---------------
@@ -171,12 +177,14 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
 
 
 
+
+
 //-------------------------------------2--FUNCION INTERRUPCION-------------------------------
 bool bandera = LOW; //este flag es para que quede registro que se presiono el boton o salto el sensor de la interrupcion y le da tiempo al coigo a actuar.
 
-void IRAM_ATTR buttonInput(){ //esta es la funcion que se ejecuta cuando entra la interrupcion del boton
-   //if(!digitalRead(boton_de_prueba)) //si es 1 HIGH o 5v entra al if y habilita la vandera
-       bandera = HIGH;
+void IRAM_ATTR buttonInput()
+      { //esta es la funcion que se ejecuta cuando entra la interrupcion del boton
+        bandera = HIGH;
       }
 
 //----------------------------------------------------------------------------------------------
