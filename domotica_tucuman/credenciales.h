@@ -26,6 +26,8 @@
 //el pin D4 que pertenece al GPIO 2 es el del LED de la placa builtin.(para prender el led hay que meter un LOW porque es logica invertida)
 //el pin D3 que pertenece al GPIO 0 es el del boton FLASH de la placa.
 
+//En el programa hay que poner el numero de GPIO para que lo reconozca el ide de arduino.  NO SE SI LO RECONOCE CON EL PIN   DI, D2, D3, etc.
 #define PUERTA_INGRESO_PIN 5 // gpio5 es el pin D1 de la placa esp8266
 #define CHICHARRA_INGRESO_PIN 16 //gpio 16 es el pin D0
 #define LUZ_VEREDA_PIN 4  //gpio 4 es el pin D2
+#define SIRENA_ANTIPANICO_PIN 14 //gpio 14 es el pin D5

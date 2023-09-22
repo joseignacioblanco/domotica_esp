@@ -53,6 +53,15 @@ void setup()
 
   pinMode(luz_vereda_pin, OUTPUT); // configura el pin de luz vereda como salida y le mete un high luz prendida.
   digitalWrite(luz_vereda_pin, HIGH);
+
+  pinMode(sirena_antipanico_pin, OUTPUT); // configura el pin de luz vereda como salida y le mete un high luz prendida.
+  digitalWrite(sirena_antipanico_pin, LOW);
+
+
+   //agregar pines
+
+
+
   
   //Conexion a red de WiFi
   WiFi.mode(WIFI_STA); //configura el WIFI de la esp como cliente o STATION creo que lo hace atravez de comandos AT y lo elige en modo 1. el modo 2 es AP y el 3 es mixto.
