@@ -76,6 +76,13 @@ void setup()
     }//fin del while
   Serial.print("Se ha conectado a la red wifi. Dirección IP: "); //Una vez conectado a la red, manda mensaje de conectado y devuelve el IP.
   Serial.println(WiFi.localIP());
+  for(int k = 0 ; k <= 4 ; k++) //parapadea 5 veces para indicar que esta en regimen.
+    {
+    digitalWrite(led_de_prueba, LOW);
+    delay(200);
+    digitalWrite(led_de_prueba, HIGH);
+    delay(200);
+    }
 
   //interrupcion 
 

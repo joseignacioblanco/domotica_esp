@@ -10,9 +10,9 @@
                                     
 #define BOTtoken "5568512239:AAGlvS7ObKzH0jHHaamfuVPbU5K2Tixbny8" //este token lo deuelve el BotFather de telegram.
 
-//#define CHAT_ID "-1001922861125" //este id lo devuelve el bot IDBot de telegram. para el grupo de control remoto con exe
+#define CHAT_ID "-1001922861125" //este id lo devuelve el bot IDBot de telegram. para el grupo de control remoto con exe
 //#define CHAT_ID "-1001611135015" //este id lo devuelve el bot IDBot de telegram. para el grupo de domotica tucuman con tinti
-#define CHAT_ID "900499386" //este id lo devuelve el bot IDBot de telegram. Solo para prueba 1
+//#define CHAT_ID "900499386" //este id lo devuelve el bot IDBot de telegram. Solo para prueba 1
 
 //-----------------Otras Configuraciones-----------------------------------
 

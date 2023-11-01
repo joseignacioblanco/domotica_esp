@@ -118,7 +118,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
 
           
      //Activa por 3 segundos la sirena antipanico.
-    if (text == "/sirena_ANTIPANICO" || text == "/sirena_ANTIPANICO_ON@neder86_bot")
+    if (text == "/sirena_ANTIPANICO" || text == "/sirena_ANTIPANICO@neder86_bot")
       {
       bot.sendMessage(chat_id, "Disparo de sirena por 3seg", "");
       digitalWrite(sirena_antipanico_pin, ENABLED);
