@@ -21,7 +21,7 @@ const int sirena_antipanico_pin = SIRENA_ANTIPANICO_PIN; //GPIO 14 -PIN D5
 const int boton_de_prueba = 0;  //GPIO 0 - PIN D3
 const int led_de_prueba = 2; //GPIO 2 - PIN D4
 const int luces_terraza_pin = LUCES_TERRAZA_PIN; //GPIO 12 - PIN D6
-const int portero_11_pin = PRTERO_11_PIN; //GPIO 13 - PIN D7
+const int portero_11_pin = PORTERO_11_PIN; //GPIO 13 - PIN D7
 
 
 

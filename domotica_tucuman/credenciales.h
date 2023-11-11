@@ -32,7 +32,7 @@
 #define LUZ_VEREDA_PIN 4  //gpio 4 es el pin D2
 #define SIRENA_ANTIPANICO_PIN 14 //gpio 14 es el pin D5
 #define LUCES_TERRAZA_PIN 12 //gpio 12 es el pin D6 .
-#define PRTERO_11_PIN 13 //gpio 13  es el pin D7
+#define PORTERO_11_PIN 13 //gpio 13  es el pin D7
 
 
 //me quedan los pines: .
