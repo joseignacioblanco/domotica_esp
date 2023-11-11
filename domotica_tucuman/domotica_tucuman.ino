@@ -63,7 +63,10 @@ void setup()
   pinMode(portero_11_pin, OUTPUT); // configura el pin de portero de la terraza como salida y le mete un LOW para disablearlo.
   digitalWrite(portero_11_pin, DISABLED);
 
-  //TODO sensor de puerta abierta de la terraza y liman de la puerta de la terraza para que cierre. dos pines mas.
+  pinMode(puerta_terraza_pin, OUTPUT); // configura el pin de puerta de la terraza como salida y le mete un LOW para disablearlo o sea desbloqueada.
+  digitalWrite(puerta_terraza_pin, DISABLED);
+
+  //TODO falta el sensor de la puerta para saber si esta abierta o cerrada
 
    // aqui agregar mas pines para configurar mas funciones.
 

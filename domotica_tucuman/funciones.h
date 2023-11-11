@@ -22,6 +22,7 @@ const int boton_de_prueba = 0;  //GPIO 0 - PIN D3
 const int led_de_prueba = 2; //GPIO 2 - PIN D4
 const int luces_terraza_pin = LUCES_TERRAZA_PIN; //GPIO 12 - PIN D6
 const int portero_11_pin = PORTERO_11_PIN; //GPIO 13 - PIN D7
+const int puerta_terraza_pin = PUERTA_TERRAZA_PIN; //GPIO 15 - PIN D8
 
 
 
@@ -60,10 +61,12 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       welcome += "/luz_vereda_ON \n";
       welcome += "/luz_vereda_OFF \n\n";
       welcome += "/sirena_ANTIPANICO \n\n";
-      welcome += "/luz_terraza_ON \n\n";
+      welcome += "/luz_terraza_ON \n";
       welcome += "/luz_terraza_OFF \n\n";
-      welcome += "/portero_ENABLED \n\n";
+      welcome += "/portero_ENABLED \n";
       welcome += "/portero_DISABLED \n\n";
+      welcome += "/bloquear_puerta_terraza \n";
+      welcome += "/desbloquear_puerta_terraza \n\n";
       
       //...
       //welcome += "/mondongo \n";
@@ -168,6 +171,21 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
  //--------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+//opcion de bloquea - desbloquea puertas de la terrazza.-----------------------------------------------------------------------------------------------
+    if (text == "/bloquear_puerta_terraza" || text == "/bloquear_puerta_terraza@neder86_bot")
+      {
+      bot.sendMessage(chat_id, "Cerradura de la terraza BLOQUEADA!", "");
+      digitalWrite(puerta_terraza_pin, LOKED);//el gpio2 tiene logica ivertida en la esp8266 pero normal en la esp32.
+      }
+
+    //desbloquea puertas de ingreso reja y vidrio. (despues separar cada una cada una)
+    if (text == "/desbloquear_puerta_terraza" || text == "/desbloquear_puerta_terraza@neder86_bot")
+      {
+      bot.sendMessage(chat_id, "Cerradura de terraza DESbloqueada", "");
+      digitalWrite(puerta_terraza_pin, UNLOKED);//el gpio2 tiene logica ivertida en la esp8266 pero normal en la esp32. porque asi esta el led.  no aplica a lo demas pines
+      }
+ //--------------------------------------------------------------------------------------------------------------------------------------------------
+
  //----------------------------------------------------------------------------------------------------------------------------------------------------
 
  //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -241,6 +259,17 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       else
         {
         bot.sendMessage(chat_id, "portero DESACTIVADO", "");
+        }
+        //--------------------------------
+
+
+        if (digitalRead(puerta_terraza_pin))
+        {
+        bot.sendMessage(chat_id, "Acceso terraza BLOQUEADO", "");
+        }
+      else
+        {
+        bot.sendMessage(chat_id, "Acceso terraza DES-BLOQUEADO", "");
         }
         //--------------------------------
         

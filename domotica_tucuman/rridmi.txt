@@ -1,0 +1,30 @@
+Read me: con algunas pistas para entender el codigo
+
+
+Para agragar funciones nuevas:
+
+1- En credenciales.h tengo que agregar el pin como un #define (constante simbolica) el nombre del pin nuevo a agregar y el numero de gpio
+
+#define NOMBRE_DEL_PIN 15     mas o menos en la linea 35
+
+
+
+
+
+2- en domotica tucuman que es el archivo ppal de la app  con el main y todo eso, tengo que poner mas o menos en la linea 65 el
+pinmode y el dijital write para setear el pin.
+
+pinmode(15,output);
+digitalWrite(15, HIGH);
+
+3- en el cabecera funciones.h  tengo que enlazar mas o menos en la linea 26 el #define con la variable  const int pin_en_cuesstion.
+no se para que lo hice asi doble definicion.  tengdria que ponerlo como const int de una sola vez y listo.  (corregir eso)
+
+4- agregar la funcionalidad en funciones.h  en la parte del menu de ayuda que se muestra en telegran
+
+5- agregar la funcion propiamente para que prenda apague avise a telegram  etc.
+
+6- agregar en la parte de estado para que revise el estado de cada pin.
+
+7- ,,,
+

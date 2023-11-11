@@ -33,6 +33,7 @@
 #define SIRENA_ANTIPANICO_PIN 14 //gpio 14 es el pin D5
 #define LUCES_TERRAZA_PIN 12 //gpio 12 es el pin D6 .
 #define PORTERO_11_PIN 13 //gpio 13  es el pin D7
+#define PUERTA_TERRAZA_PIN 15 //gpio 15 es el pin D8.
 
 
-//me quedan los pines: .
+//me quedan los pines: 3-RX ; 1-TX ; 10-S3 ; 9S2 .
