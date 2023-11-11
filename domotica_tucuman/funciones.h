@@ -20,8 +20,8 @@ const int luz_vereda_pin = LUZ_VEREDA_PIN; //GPIO 4 - PIN D2
 const int sirena_antipanico_pin = SIRENA_ANTIPANICO_PIN; //GPIO 14 -PIN D5
 const int boton_de_prueba = 0;  //GPIO 0 - PIN D3
 const int led_de_prueba = 2; //GPIO 2 - PIN D4
-
-
+const int luces_terraza_pin = LUCES_TERRAZA_PIN; //GPIO 12 - PIN D6
+const int portero_11_pin = PRTERO_11_PIN; //GPIO 13 - PIN D7
 
 
 
@@ -60,9 +60,14 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       welcome += "/luz_vereda_ON \n";
       welcome += "/luz_vereda_OFF \n\n";
       welcome += "/sirena_ANTIPANICO \n\n";
+      welcome += "/luz_terraza_ON \n\n";
+      welcome += "/luz_terraza_OFF \n\n";
+      welcome += "/portero_ENABLED \n\n";
+      welcome += "/portero_DISABLED \n\n";
       
       //...
       //welcome += "/mondongo \n";
+      
       welcome += "/Estado muestra el estado general del sistema. \n";
       welcome += "/Ayuda imprime este Menú \n";
       
@@ -126,6 +131,45 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       digitalWrite(sirena_antipanico_pin, DISABLED);
       }
 
+
+ //--------------------------------------------------------------------------------------------------------------------------------------------------
+
+    //Enciende la luces de la terraza.
+    if (text == "/luz_terraza_ON" || text == "/luz_terraza_ON@neder86_bot")
+      {
+      bot.sendMessage(chat_id, "Luces terraza ENCENDIDAS!", "");
+      digitalWrite(luces_terraza_pin, HIGH);
+      }
+
+    //Apaga la luz del plafon de la vereda.
+    if (text == "/luz_terraza_OFF" || text == "/luz_terraza_OFF@neder86_bot")
+      {
+      bot.sendMessage(chat_id, "Luces terraza APAGADAS!", "");
+      digitalWrite(luces_terraza_pin, LOW);//configurar si es alto o bajo segun la logica del pin o del relé.
+      }
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------
+
+    //activa o desactiva el timbre del 11 del portero para que no suene cuando el calo no quiera.
+    if (text == "/portero_ENABLED" || text == "/portero_ENABLED@neder86_bot")
+      {
+      bot.sendMessage(chat_id, "TIMBRE PRTERO SI SUENA!", "");
+      digitalWrite(portero_11_pin, ENABLED);
+      }
+
+    //desactiva chicharra de las puertas abiertas)
+    if (text == "/portero_DISABLED" || text == "/portero_DISABLED@neder86_bot")
+      {
+      bot.sendMessage(chat_id, "TIMBRE PORTERO NO SUENA", "");
+      digitalWrite(portero_11_pin, DISABLED);
+      }
+
+ //--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ //----------------------------------------------------------------------------------------------------------------------------------------------------
+
  //----------------------------------------------------------------------------------------------------------------------------------------------------
          
           //agregar mas servicios
@@ -174,6 +218,31 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
         }
         //--------------------------------
 
+
+        //--------------------------------
+
+      if (digitalRead(luces_terraza_pin))
+        {
+        bot.sendMessage(chat_id, "Luz terraza ENCENDIDA", "");
+        }
+      else
+        {
+        bot.sendMessage(chat_id, "Luz terraza APAGADA", "");
+        }
+        //--------------------------------
+
+
+        //--------------------------------
+        
+      if (digitalRead(portero_11_pin))
+        {
+        bot.sendMessage(chat_id, "portero ACTIVADO", "");
+        }
+      else
+        {
+        bot.sendMessage(chat_id, "portero DESACTIVADO", "");
+        }
+        //--------------------------------
         
          //agregar mas servicios
 

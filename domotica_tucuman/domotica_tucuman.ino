@@ -54,11 +54,18 @@ void setup()
   pinMode(luz_vereda_pin, OUTPUT); // configura el pin de luz vereda como salida y le mete un high luz prendida.
   digitalWrite(luz_vereda_pin, HIGH);
 
-  pinMode(sirena_antipanico_pin, OUTPUT); // configura el pin de luz vereda como salida y le mete un high luz prendida.
+  pinMode(sirena_antipanico_pin, OUTPUT); // configura el pin de sirena antipanico como salida y le mete un LOW pa que no este sonando.
   digitalWrite(sirena_antipanico_pin, LOW);
 
+  pinMode(luces_terraza_pin, OUTPUT); // configura el pin de luz terraza como salida y le mete un LOW apagada.
+  digitalWrite(luces_terraza_pin, LOW);
 
-   //agregar pines
+  pinMode(portero_11_pin, OUTPUT); // configura el pin de portero de la terraza como salida y le mete un LOW para disablearlo.
+  digitalWrite(portero_11_pin, DISABLED);
+
+  //TODO sensor de puerta abierta de la terraza y liman de la puerta de la terraza para que cierre. dos pines mas.
+
+   // aqui agregar mas pines para configurar mas funciones.
 
 
 
