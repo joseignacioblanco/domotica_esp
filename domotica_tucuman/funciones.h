@@ -24,7 +24,7 @@ const int portero_11_pin = PORTERO_11_PIN; //GPIO 13 - PIN D7
 const int puerta_terraza_pin = PUERTA_TERRAZA_PIN; //GPIO 15 - PIN D8
 
 const int dht_pin = 3;  //el gpio 3 es el pin RX.  pin para el DHT11. sensor de temp y hum.
-DHTesp dht; //Esto crea una variabe dht del tipo DHTesp: (no se si es una variable o un objeto de una clase: buscar bien)
+DHTesp dht; //Esto crea un objeto de la clase DHTesp.
 
 //-------1--FUNCION MANEJADORA DE LA COMUNICACION ENTRE TELEGRAM Y LA ESP---------------
 
@@ -193,9 +193,9 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       TempAndHumidity data = dht.getTempAndHumidity();
       String temperatura = String(data.temperature,1);
       String humedad = String(data.humidity,1);
-      Serial.println("Temperatura: " + temperatura + " - Humedad: " + humedad);
+      Serial.println("Temperatura: " + temperatura + "ºC - Humedad: " + humedad + "%");
 
-      bot.sendMessage(chat_id, "Temperatura: " + temperatura + " - Humedad: " + humedad, "");
+      bot.sendMessage(chat_id, "Temperatura: " + temperatura + "ºC - Humedad: " + humedad + "%", "");
     }
 
 
@@ -295,16 +295,15 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
         TempAndHumidity data = dht.getTempAndHumidity();
         String temperatura = String(data.temperature,1);
         String humedad = String(data.humidity,1);
-        Serial.println("Temperatura: " + temperatura + " - Humedad: " + humedad);
+        Serial.println("Temperatura: " + temperatura + "ºC - Humedad: " + humedad + "%");
 
-        bot.sendMessage(chat_id, "Temperatura: " + temperatura + " - Humedad: " + humedad, "");
+        bot.sendMessage(chat_id, "Temperatura: " + temperatura + "ºC - Humedad: " + humedad + "%", "");
 
 
         //-------------------------------------
         
          //agregar mas servicios
 
-        
         
       }
     }
