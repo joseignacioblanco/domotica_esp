@@ -16,6 +16,7 @@
 
 //#include <WiFi.h> //Este archivo cabecera lo activo cuando es la placa esp32. Hay que cambiar tambien en "placa" del ide de arbino.(podria hacerlo con hiderwors o algo similar).TODO
 #include <ESP8266WiFi.h> //Este archivo cabeccera lo activo cuando es la placa ESP8266.
+#include <DHTesp.h> //Este cabecera tiene las bibliotecas para usar el sensor dht11.
 #include <WiFiClientSecure.h> //Todavia no se para que sirve este archivo cabecera: al parecer hay que crear un objeto cliente de la clase WiFiClientSecure.
 #include "credenciales.h" //aqui van a estar las claves de ssid password bottoken y chat_id, para personalizar mejor el codigo segun el usuario.
 #include "funciones.h"
@@ -94,6 +95,12 @@ void setup()
     delay(200);
     }
 
+  //Aqui lo del sensor de temperatuta DHT11
+
+    //DHTesp dht; //Esto crea una variabe dht del tipo DHTesp: (no se si es una variable o un objeto de una clase: buscar bien)la declaro en funciones porque sino esta fuera de alcance.
+    dht.setup(dht_pin, DHTesp::DHT11); //esto setea la variable dht a su pin 3 definido en linea 27 de cabecera funciones.h y el modelo 11.  esos :: era espacio de nombre queno?
+  
+  
   //interrupcion 
 
   attachInterrupt(digitalPinToInterrupt(boton_de_prueba), buttonInput, RISING); //aqui instala la señal!!! dice que la interrupcion se va activar con un high de boton_de_prueba

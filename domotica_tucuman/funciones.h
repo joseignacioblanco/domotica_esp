@@ -6,7 +6,6 @@
 
 
 
-
 WiFiClientSecure client; //Crea un objeto "client" de la clase WiFiClientSecure
 UniversalTelegramBot bot(BOTtoken, client); //Parece que crea un objeto "bot" de la clase 
                                             //UniversalTelegramBot y lo construye con los 
@@ -24,7 +23,8 @@ const int luces_terraza_pin = LUCES_TERRAZA_PIN; //GPIO 12 - PIN D6
 const int portero_11_pin = PORTERO_11_PIN; //GPIO 13 - PIN D7
 const int puerta_terraza_pin = PUERTA_TERRAZA_PIN; //GPIO 15 - PIN D8
 
-
+const int dht_pin = 3;  //el gpio 3 es el pin RX.  pin para el DHT11. sensor de temp y hum.
+DHTesp dht; //Esto crea una variabe dht del tipo DHTesp: (no se si es una variable o un objeto de una clase: buscar bien)
 
 //-------1--FUNCION MANEJADORA DE LA COMUNICACION ENTRE TELEGRAM Y LA ESP---------------
 
@@ -67,6 +67,7 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       welcome += "/portero_DISABLED \n\n";
       welcome += "/bloquear_puerta_terraza \n";
       welcome += "/desbloquear_puerta_terraza \n\n";
+      welcome += "/consultar_temperatura \n\n";
       
       //...
       //welcome += "/mondongo \n";
@@ -186,6 +187,18 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       }
  //--------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+    if(text == "/consultar_temperatura" || text == "/consultar_temperatura@neder86_bot")
+    {
+      TempAndHumidity data = dht.getTempAndHumidity();
+      String temperatura = String(data.temperature,1);
+      String humedad = String(data.humidity,1);
+      Serial.println("Temperatura: " + temperatura + " - Humedad: " + humedad);
+
+      bot.sendMessage(chat_id, "Temperatura: " + temperatura + " - Humedad: " + humedad, "");
+    }
+
+
  //----------------------------------------------------------------------------------------------------------------------------------------------------
 
  //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -272,6 +285,22 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
         bot.sendMessage(chat_id, "Acceso terraza DES-BLOQUEADO", "");
         }
         //--------------------------------
+
+
+
+        //-------------------------------------
+
+        //Aqui va a consultar la temperatuta y humedad nuevamente
+
+        TempAndHumidity data = dht.getTempAndHumidity();
+        String temperatura = String(data.temperature,1);
+        String humedad = String(data.humidity,1);
+        Serial.println("Temperatura: " + temperatura + " - Humedad: " + humedad);
+
+        bot.sendMessage(chat_id, "Temperatura: " + temperatura + " - Humedad: " + humedad, "");
+
+
+        //-------------------------------------
         
          //agregar mas servicios
 
