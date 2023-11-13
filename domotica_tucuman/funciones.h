@@ -2,7 +2,7 @@
 //Archivos cabecera
 #include <UniversalTelegramBot.h> //Este archivo cabecera debe habilitar los metodos de lo que es el BOT de TELEGRAM.
 #include <ArduinoJson.h> //Archivo cabecera para interpretar los comandos de telegran
-
+#include <Adafruit_BMP085.h> //este cabecera lo pongo para que ande el sensor bm9180 de presion y temp y altitud. que va por i2c en los pines d1 y d2 de esp8266
 
 
 
@@ -25,7 +25,7 @@ const int puerta_terraza_pin = PUERTA_TERRAZA_PIN; //GPIO 15 - PIN D8
 
 const int dht_pin = 3;  //el gpio 3 es el pin RX.  pin para el DHT11. sensor de temp y hum.
 DHTesp dht; //Esto crea un objeto de la clase DHTesp.
-
+Adafruit_BMP085 bmp; //Esto crea un objeto para sacar los datos de presion.
 //-------1--FUNCION MANEJADORA DE LA COMUNICACION ENTRE TELEGRAM Y LA ESP---------------
 
 void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recibe un mensaje (ESTE ES EL PROTOTIPO DE LA FUNCION QUE RECIBE UN ENTERO)
@@ -195,7 +195,22 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
       String humedad = String(data.humidity,1);
       Serial.println("Temperatura: " + temperatura + "ºC - Humedad: " + humedad + "%");
 
-      bot.sendMessage(chat_id, "Temperatura: " + temperatura + "ºC - Humedad: " + humedad + "%", "");
+      Serial.print("Temperature = ");
+      Serial.print(bmp.readTemperature());
+      Serial.println(" *C");
+    
+      Serial.print("Pressure = ");
+      Serial.print(bmp.readPressure());
+      Serial.println(" Pa");
+    
+      // Calculate altitude assuming 'standard' barometric
+      // pressure of 1013.25 millibar = 101325 Pascal
+      Serial.print("Altitude = ");
+      Serial.print(bmp.readAltitude());
+      Serial.println(" meters");
+
+      bot.sendMessage(chat_id, "Temp: " + temperatura + "ºC | Hum: " + humedad + "% | Pres: " + bmp.readPressure() + " Pa | Alt: " + bmp.readAltitude() + " m" , "");
+      
     }
 
 
@@ -297,7 +312,8 @@ void handleNewMessages(int numNewMessages) //Maneja lo q sucede cada vez q recib
         String humedad = String(data.humidity,1);
         Serial.println("Temperatura: " + temperatura + "ºC - Humedad: " + humedad + "%");
 
-        bot.sendMessage(chat_id, "Temperatura: " + temperatura + "ºC - Humedad: " + humedad + "%", "");
+        //bot.sendMessage(chat_id, "Temperatura: " + temperatura + "ºC - Humedad: " + humedad + "%", "");
+        bot.sendMessage(chat_id, "Temp: " + temperatura + "ºC | Hum: " + humedad + "% | Pres: " + bmp.readPressure() + " Pa | Alt: " + bmp.readAltitude() + " m" , "");
 
 
         //-------------------------------------

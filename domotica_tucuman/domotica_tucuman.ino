@@ -99,7 +99,14 @@ void setup()
 
     //DHTesp dht; //Esto crea una variabe dht del tipo DHTesp: (no se si es una variable o un objeto de una clase: buscar bien)la declaro en funciones porque sino esta fuera de alcance.
     dht.setup(dht_pin, DHTesp::DHT11); //esto setea la variable dht a su pin 3 definido en linea 27 de cabecera funciones.h y el modelo 11.  esos :: era espacio de nombre queno?
-  
+
+
+  //aqui lo del sensor de presion bmp 180
+
+  if (!bmp.begin()) {  //esto inicializa el sensor.
+  Serial.println("Could not find a valid BMP085 sensor, check wiring!");
+  //while (1) {} //si no se inicializa, se tilda.  hay que reiniciar
+  }
   
   //interrupcion 
 

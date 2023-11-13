@@ -27,9 +27,9 @@
 //el pin D3 que pertenece al GPIO 0 es el del boton FLASH de la placa.
 
 //En el programa hay que poner el numero de GPIO para que lo reconozca el ide de arduino.  NO SE SI LO RECONOCE CON EL PIN   DI, D2, D3, etc.
-#define PUERTA_INGRESO_PIN 5 // gpio5 es el pin D1 de la placa esp8266
+#define PUERTA_INGRESO_PIN 10 // gpio5 es el pin D1 de la placa esp8266 - pero pongo el gpio 10 pin S3 para reservar el gpio5 para SCL del i2c.
 #define CHICHARRA_INGRESO_PIN 16 //gpio 16 es el pin D0
-#define LUZ_VEREDA_PIN 4  //gpio 4 es el pin D2
+#define LUZ_VEREDA_PIN 9  //gpio 4 es el pin D2 - pero pongo el gpio9 pin S2 para reservar el gpio4 para SDA de i2c.
 #define SIRENA_ANTIPANICO_PIN 14 //gpio 14 es el pin D5
 #define LUCES_TERRAZA_PIN 12 //gpio 12 es el pin D6 .
 #define PORTERO_11_PIN 13 //gpio 13  es el pin D7
