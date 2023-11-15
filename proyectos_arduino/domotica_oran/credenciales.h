@@ -30,7 +30,8 @@
 
 //En el programa hay que poner el numero de GPIO para que lo reconozca el ide de arduino.  NO SE SI LO RECONOCE CON EL PIN   DI, D2, D3, etc.
 
-#define FAROL_PIN 15 //gpio 15 es el pin D8.
+#define FAROL_PIN 12 //gpio 12 es el pin D6.
 #define LUZ_VEREDA_PIN 16  //gpio16 pin D0.
 #define PORTERO_PIN 13 //gpio 13  es el pin D7
 #define SIRENA_ANTIPANICO_PIN 14 //gpio 14 es el pin D5
+#define DHT_PIN 15 //gpio 15 es el pin D8 reservado para el sensor dht11.

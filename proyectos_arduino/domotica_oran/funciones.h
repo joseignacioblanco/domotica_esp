@@ -20,7 +20,7 @@ const int luz_vereda_pin = LUZ_VEREDA_PIN; //GPIO 4 - PIN D2
 const int portero_pin = PORTERO_PIN; //GPIO 13 - PIN D7
 const int sirena_antipanico_pin = SIRENA_ANTIPANICO_PIN; //GPIO 14 -PIN D5
 
-const int dht_pin = 3;  //el gpio 3 es el pin RX.  pin para el DHT11. sensor de temp y hum. TODO pasarlo a otro pin que no sea RX asi no interfiere con monitor serie
+const int dht_pin = DHT_PIN;  //el gpio 15 es el pin D8.  pin para el DHT11. sensor de temp y hum.
 DHTesp dht; //Esto crea un objeto de la clase DHTesp.
 
 //-------1--FUNCION MANEJADORA DE LA COMUNICACION ENTRE TELEGRAM Y LA ESP---------------
